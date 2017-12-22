@@ -3,12 +3,11 @@
   <div class='app'>
     <my-header :sellerData="sellerData"></my-header>
     <div class="tab border-1px">
-      <router-link class="tab-item" to="/seller">商品</router-link>
-      <router-link class="tab-item" to="/goods">评论</router-link>
-      <router-link class="tab-item" to="/ratings">商家</router-link>
+      <router-link class="tab-item" to="/goods">商品</router-link>
+      <router-link class="tab-item" to="/ratings">评论</router-link>
+      <router-link class="tab-item" to="/seller">商家</router-link>
     </div>
-    <router-view></router-view>
-    <a @click="getData">点击获取seller</a>
+    <router-view :seller-data="sellerData"></router-view>
   </div>
 </template>
 

@@ -42,6 +42,13 @@
     }
 }
 
+//取消边框线效果的mixin
+@mixin border-none() {
+    &:after {
+        display: none;
+    }
+}
+
 // 媒体查询选择相应大小背景图片的mixin
 @mixin bg-image( $url) {
     background-image: url($url + '@2x.png');

@@ -85,7 +85,6 @@
               <p class="content">{{sellerData.bulletin}}</p>
             </div>
           </div>
-
         </div>
         <!-- detail主要内容结束 -->
 
