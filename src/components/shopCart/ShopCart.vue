@@ -37,8 +37,8 @@ export default {
       default() {
         return [
           {
-            price: 15,
-            count: 3
+            price: 0,
+            count: 0
           }
         ];
       }
@@ -63,14 +63,18 @@ export default {
     totalPrice() {
       let total = 0;
       this.selectFoods.forEach(food => {
-        total += food.price * food.count;
+        if (food.count) {
+          total += food.price * food.count;
+        }
       });
       return total;
     },
     totalCount() {
       let count = 0;
       this.selectFoods.forEach(food => {
-        count += food.count;
+        if (food.count) {
+          count += food.count;
+        }
       });
       return count;
     },
@@ -149,6 +153,7 @@ export default {
           color: rgb(255, 255, 255);
           background-color: rgb(240, 20, 20);
           box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+          vertical-align: middle;
         }
       }
 

@@ -426,9 +426,7 @@ export default {
   }
 
   // 定义detail显示隐藏时的过渡效果
-  .detail-show-enter-active {
-    transition: all 0.3s ease;
-  }
+  .detail-show-enter-active,
   .detail-show-leave-active {
     transition: all 0.3s ease;
   }

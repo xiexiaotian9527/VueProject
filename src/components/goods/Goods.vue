@@ -53,6 +53,10 @@
                     <i>￥</i>{{food.oldPrice}}
                   </span>
                 </div>
+
+                <div class="food-control">
+                  <cart-control :food="food"></cart-control>
+                </div>
               </div>
             </li>
           </ul>
@@ -62,7 +66,7 @@
     <!-- 右侧商品内容区结束 -->
 
     <!-- 购物车组件开始 -->
-    <shop-cart :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice"></shop-cart>
+    <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice"></shop-cart>
     <!-- 购物车组件结束 -->
   </div>
 </template>
@@ -72,6 +76,7 @@ import BScroll from "better-scroll";
 
 import MyIcon from "@/components/icon/Icon";
 import ShopCart from "@/components/shopCart/ShopCart";
+import CartControl from "@/components/cartControl/CartControl";
 
 export default {
   name: "goods",
@@ -84,7 +89,7 @@ export default {
 
   data() {
     return {
-      goodsData: {},
+      goodsData: [],
       listHeigt: [],
       scrollY: 0
     };
@@ -92,7 +97,8 @@ export default {
 
   components: {
     MyIcon,
-    ShopCart
+    ShopCart,
+    CartControl
   },
 
   computed: {
@@ -106,8 +112,20 @@ export default {
           return i;
         }
       }
-
       return 0;
+    },
+    selectFoods() {
+      let foods = [];
+      if (this.goodsData.length) {
+        this.goodsData.forEach(good => {
+          good.foods.forEach(food => {
+            foods.push(food);
+          });
+        });
+      }
+
+      // console.log('forEach' in this.goodsData);
+      return foods;
     }
   },
 
@@ -118,7 +136,8 @@ export default {
         click: true
       });
       this.foodsScroll = new BScroll(this.$refs.foodsWrap, {
-        probeType: 3
+        probeType: 3,
+        click: true
       });
 
       // 绑定scroll事件，实时获取滚动的内容的距离
@@ -145,13 +164,12 @@ export default {
       if (!event._constructed) {
         return;
       }
-
       // 获取foods各个类别的元素
       let foodList = this.$refs.foodList;
       // 获取当前点击的左侧菜单对应的foods类别
       let el = foodList[index];
       // 调用对应better-scroll实例对象的api完成内容滑动
-      this.foodsScroll.scrollToElement(el, 200);
+      this.foodsScroll.scrollToElement(el, 100);
     }
   },
 
@@ -239,6 +257,7 @@ export default {
         }
       }
       .food-item {
+        position: relative;
         display: flex;
         margin: 18px 18px 0 18px;
         padding-bottom: 18px;
@@ -281,9 +300,6 @@ export default {
             .sell-count {
               margin-right: 12px;
             }
-
-            .rating {
-            }
           }
 
           .food-price {
@@ -312,6 +328,12 @@ export default {
                 font-weight: normal;
               }
             }
+          }
+
+          .food-control {
+            position: absolute;
+            right: 0;
+            bottom: 12px;
           }
         }
       }
