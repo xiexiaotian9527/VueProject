@@ -66,7 +66,7 @@
     <!-- 右侧商品内容区结束 -->
 
     <!-- 购物车组件开始 -->
-    <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice"></shop-cart>
+    <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice" ref="shopCart"></shop-cart>
     <!-- 购物车组件结束 -->
   </div>
 </template>
@@ -115,6 +115,7 @@ export default {
       return 0;
     },
     selectFoods() {
+      // 遍历并返回所选的每个商品的信息
       let foods = [];
       if (this.goodsData.length) {
         this.goodsData.forEach(good => {
