@@ -24,7 +24,7 @@
           </h1>
           <!-- 再遍历各个菜品类里的菜品 -->
           <ul>
-            <li v-for="(food, num) in item.foods" :key="num" class="food-item border-1px">
+            <li v-for="(food, num) in item.foods" :key="num" class="food-item border-1px" @click="selectFood(food, $event)">
               <!-- 左侧菜品图标 -->
               <div class="food-icon">
                 <img :src="food.icon" :alt="food.name">
@@ -68,6 +68,10 @@
     <!-- 购物车组件开始 -->
     <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice" ref="shopCart"></shop-cart>
     <!-- 购物车组件结束 -->
+
+    <!-- 商品详情页组件开始 -->
+    <food :food="selectedFood" ref="food" v-show="demo"></food>
+    <!-- 商品详情页组件结束 -->
   </div>
 </template>
 
@@ -77,6 +81,7 @@ import BScroll from "better-scroll";
 import MyIcon from "@/components/icon/Icon";
 import ShopCart from "@/components/shopCart/ShopCart";
 import CartControl from "@/components/cartControl/CartControl";
+import Food from "@/components/food/Food";
 
 export default {
   name: "goods",
@@ -91,14 +96,17 @@ export default {
     return {
       goodsData: [],
       listHeigt: [],
-      scrollY: 0
+      scrollY: 0,
+      selectedFood: {},
+      demo: false
     };
   },
 
   components: {
     MyIcon,
     ShopCart,
-    CartControl
+    CartControl,
+    Food
   },
 
   computed: {
@@ -171,6 +179,13 @@ export default {
       let el = foodList[index];
       // 调用对应better-scroll实例对象的api完成内容滑动
       this.foodsScroll.scrollToElement(el, 100);
+    },
+    selectFood(food, event) {
+      // 将当前所点击的列表的详细内容传递给selectedFood属性(用以传递给food组件)
+      this.selectedFood = food;
+
+      // 点击调用food组件的show方法将food组件显示出来
+      this.$refs.food.show();
     }
   },
 

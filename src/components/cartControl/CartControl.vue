@@ -4,10 +4,9 @@
     <!-- 给减少按钮和计数元素添加动画 -->
     <transition name="is-show">
       <!-- 减少按钮 -->
-      <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart($event)">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop="decreaseCart($event)">
         <i class="icon-remove_circle_outline"></i>
       </div>
-
     </transition>
 
     <transition name="num-show">
@@ -16,7 +15,7 @@
     </transition>
 
     <!-- 增加按钮 -->
-    <div class="cart-add" @click="addCart($event)">
+    <div class="cart-add" @click.stop="addCart($event)">
       <i class="icon-add_circle"></i>
     </div>
   </div>
