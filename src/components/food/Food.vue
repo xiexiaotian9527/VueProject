@@ -28,13 +28,18 @@
                             <i>￥</i>{{food.oldPrice}}</span>
                     </div>
                     <!-- 添加购物车按钮 -->
+
                     <div class="cart-control-wrap">
+
                         <!-- 该商品已添加进购物车则显示CartControl组件 -->
                         <cart-control :food="food" class="cart-control" v-show="food.count"></cart-control>
 
                         <!-- 该商品未添加进购物车中则显示首次加入购物车组件 -->
-                        <div class="add-cart" v-show="!food.count || food.count===0" @click="addFirst()">加入购物车</div>
+                        <transition name="add-cart-show">
+                            <div class="add-cart" v-show="!food.count || food.count===0" @click="addFirst()">加入购物车</div>
+                        </transition>
                     </div>
+
                 </div>
 
                 <!-- 商品介绍区域 -->
@@ -261,5 +266,18 @@ export default {
 .food-show-enter,
 .food-show-leave-to {
   transform: translateX(100%);
+}
+
+// 控制添加购物车组件显示隐藏的特效
+.add-cart-show-enter-active,
+.add-cart-show-leave-active {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: all 1s;
+}
+.add-cart-show-enter,
+.add-cart-show-leave-to {
+  opacity: 0;
 }
 </style>
