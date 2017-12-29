@@ -65,13 +65,13 @@
     </div>
     <!-- 右侧商品内容区结束 -->
 
-    <!-- 购物车组件开始 -->
-    <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice" ref="shopCart"></shop-cart>
-    <!-- 购物车组件结束 -->
-
     <!-- 商品详情页组件开始 -->
     <food :food="selectedFood" ref="food" v-show="demo"></food>
     <!-- 商品详情页组件结束 -->
+
+    <!-- 购物车组件开始 -->
+    <shop-cart :select-foods="selectFoods" :delivery-price="sellerData.deliveryPrice" :min-price="sellerData.minPrice" ref="shopCart"></shop-cart>
+    <!-- 购物车组件结束 -->
   </div>
 </template>
 

@@ -7,7 +7,7 @@
       <router-link class="tab-item" to="/ratings">评论</router-link>
       <router-link class="tab-item" to="/seller">商家</router-link>
     </div>
-    <router-view :seller-data="sellerData"></router-view>
+    <router-view :seller-data="sellerData" :ratings-data="ratingsData"></router-view>
   </div>
 </template>
 
@@ -16,14 +16,15 @@ import Header from "./components/header/Header";
 
 export default {
   name: "app",
+  
   data() {
     return {
       sellerUrl: "/api/seller",
       goodsUrl: "/api/goods",
       ratingsUrl: "/api/ratings",
       sellerData: {},
-      goodsData: {},
-      ratingsData: {}
+      goodsData: [],
+      ratingsData: []
     };
   },
 
@@ -34,6 +35,7 @@ export default {
   computed: {},
 
   created: function() {
+    // 获取商家信息
     this.$axios.get(this.sellerUrl).then(
       res => {
         this.sellerData = res.data.data;
@@ -42,19 +44,29 @@ export default {
         console.log(err);
       }
     );
+
+    // 获取产品信息
+    this.$axios.get(this.goodsUrl).then(
+      res => {
+        this.goodsData = res.data.data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
+    // 获取评价信息
+    this.$axios.get(this.ratingsUrl).then(
+      res => {
+        this.ratingsData = res.data.data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   },
 
   methods: {
-    getData() {
-      this.$axios.get(this.sellerUrl).then(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    }
   }
 };
 </script>
