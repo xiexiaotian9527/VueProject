@@ -202,7 +202,6 @@ export default {
         console.log(err);
       }
     );
-    // console.log(this.sellerData);
   }
 };
 </script>

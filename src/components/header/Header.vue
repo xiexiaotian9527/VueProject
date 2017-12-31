@@ -63,6 +63,7 @@
             <div class="star-wrap">
               <star :size="48" :score="sellerData.score"></star>
             </div>
+
             <!-- 优惠信息 -->
             <div class="title">
               <div class="line"></div>
@@ -75,6 +76,7 @@
                 <span class="text">{{item.description}}</span>
               </li>
             </ul>
+            
             <!-- 商家公告 -->
             <div class="title">
               <div class="line"></div>
