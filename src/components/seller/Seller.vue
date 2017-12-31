@@ -39,6 +39,14 @@
             </div>
           </li>
         </ul>
+
+        <!-- 收藏按钮 -->
+        <div class="favorite" @click="toggleFavorite">
+          <div class="icon" :class="{'is-favorite': isFavorite}">
+            <span class="icon-favorite"></span>
+          </div>
+          <div class="text">{{favoriteText}}</div>
+        </div>
       </div>
 
       <!-- 商家公告区域 -->
@@ -94,7 +102,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      isFavorite: false
+    };
   },
 
   filters: {},
@@ -104,7 +114,11 @@ export default {
     Star
   },
 
-  computed: {},
+  computed: {
+    favoriteText() {
+      return this.isFavorite ? "已收藏" : "收藏";
+    }
+  },
 
   methods: {
     _initScroll() {
@@ -134,6 +148,10 @@ export default {
           }
         });
       }
+    },
+    toggleFavorite() {
+      // 切换店铺收藏效果(如果是线上，可以利用此效果发送ajax请求告诉服务器此店铺是否收藏)
+      this.isFavorite = !this.isFavorite;
     }
   },
 
@@ -232,6 +250,31 @@ export default {
               font-size: 24px;
             }
           }
+        }
+      }
+
+      .favorite {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 36px;
+        text-align: center;
+
+        .icon {
+          font-size: 24px;
+          color: #d4d6d9;
+          line-height: 24px;
+
+          &.is-favorite {
+            color: #f01313;
+          }
+        }
+
+        .text {
+          margin-top: 4px;
+          font-size: 10px;
+          color: rgb(77, 85, 93);
+          line-height: 10px;
         }
       }
     }
