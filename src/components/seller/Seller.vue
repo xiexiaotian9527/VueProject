@@ -89,6 +89,10 @@
 // vue插件
 import BScroll from "better-scroll";
 
+// 自定义的工具函数
+import { urlParse } from "@/common/js/util.js";
+import { saveToLocal, loadFromLocal } from "@/common/js/store.js";
+
 // 引入vue模块
 import Star from "@/components/star/Star";
 
@@ -103,7 +107,10 @@ export default {
 
   data() {
     return {
-      isFavorite: false
+      isFavorite: (() => {
+        //  用自定义工具函数向localStorage中读取属性，如果无此属性，则函数返回一个传入的默认值
+        return loadFromLocal(this.sellerData.id, "favorite", false);
+      })()
     };
   },
 
@@ -152,6 +159,8 @@ export default {
     toggleFavorite() {
       // 切换店铺收藏效果(如果是线上，可以利用此效果发送ajax请求告诉服务器此店铺是否收藏)
       this.isFavorite = !this.isFavorite;
+      // 用自定义工具函数向localStorage中添加属性
+      saveToLocal(this.sellerData.id, "favorite", this.isFavorite);
     }
   },
 
