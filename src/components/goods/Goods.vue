@@ -190,9 +190,9 @@ export default {
   },
 
   created: function() {
-    this.$axios.get("/api/goods").then(
+    this.$axios.get("../data.json").then(
       res => {
-        this.goodsData = res.data.data;
+        this.goodsData = res.data.goods;
         this.$nextTick(() => {
           this._initScroll();
           this._calculateHeight();

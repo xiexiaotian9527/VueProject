@@ -3,7 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import axios from 'axios';
+// 引入vue-router
 import router from './router'
+// 引入vuex
+import store from './vuex/store.js'
 
 import "./common/styles/base.css";
 import "./common/styles/icon.css";
@@ -16,6 +19,9 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })

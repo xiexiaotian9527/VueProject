@@ -1,6 +1,6 @@
 <!-- by your name -->
 <template>
-  <div class='header'>
+  <div class='my-header'>
     <!-- 主体内容区开始 -->
     <div class="content-wrap">
       <!-- avatar开始 -->
@@ -76,7 +76,7 @@
                 <span class="text">{{item.description}}</span>
               </li>
             </ul>
-            
+
             <!-- 商家公告 -->
             <div class="title">
               <div class="line"></div>
@@ -104,14 +104,14 @@
 <script>
 import Star from "@/components/star/Star";
 
-export default {
-  name: "header",
+// 引入vuex数据
+import { mapState, mapMutations } from "vuex";
 
-  props: {
-    sellerData: {
-      type: Object,
-      default: {}
-    }
+export default {
+  name: "my-header",
+
+  components: {
+    Star
   },
 
   data() {
@@ -120,11 +120,9 @@ export default {
     };
   },
 
-  components: {
-    Star
+  computed: {
+    ...mapState(["sellerData", "goodsData", "ratingsData"])
   },
-
-  computed: {},
 
   methods: {
     showDetail() {
@@ -144,7 +142,7 @@ export default {
 <style lang='scss' rel='stylesheet/scss' scoped>
 @import "../../common/styles/mixin.scss";
 
-.header {
+.my-header {
   position: relative;
   color: #ffffff;
   background-color: rgba(7, 17, 27, 0.5);

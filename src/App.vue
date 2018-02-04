@@ -20,76 +20,41 @@
 </template>
 
 <script>
-import { urlParse } from "@/common/js/util.js";
-import { saveToLocal, loadFromLocal } from "@/common/js/store.js";
+import Header from "@/components/header/header";
 
-import Header from "@/components/header/Header";
+// 引入vuex数据map
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "app",
-
-  data() {
-    return {
-      sellerUrl: "/api/seller",
-      goodsUrl: "/api/goods",
-      ratingsUrl: "/api/ratings",
-      sellerData: {
-        id: (() => {
-          var queryParam = urlParse();
-          return queryParam.id;
-        })()
-      },
-      goodsData: [],
-      ratingsData: []
-    };
-  },
-
   components: {
     MyHeader: Header
   },
 
-  computed: {},
-
-  created: function() {
-    // 获取商家信息
-    this.$axios.get(this.sellerUrl + "?" + this.sellerData.id).then(
-      res => {
-        // 添加属性时要避开vue直接添加属性不会被页面检测到并响应的问题;
-        for (let key in res.data.data) {
-          this.$set(this.sellerData, key, res.data.data[key]);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-
-    // 获取产品信息
-    this.$axios.get(this.goodsUrl).then(
-      res => {
-        for (let key in res.data.data) {
-          this.$set(this.goodsData, key, res.data.data[key]);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-
-    // 获取评价信息
-    this.$axios.get(this.ratingsUrl).then(
-      res => {
-        for (let key in res.data.data) {
-          this.$set(this.ratingsData, key, res.data.data[key]);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  data() {
+    return {};
   },
 
-  methods: {}
+  computed: {
+    ...mapState(["sellerData", "goodsData", "ratingsData"])
+  },
+
+  methods: {
+    ...mapMutations(["initData"])
+  },
+
+  created: function() {
+    // 获取商家数据信息，提交给vuex进行处理
+    this.$axios.get("../data.json").then(
+      res => {
+        // 将数据传递给vuex中的mutations事件处理
+        this.initData(res.data);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 };
 </script>
 

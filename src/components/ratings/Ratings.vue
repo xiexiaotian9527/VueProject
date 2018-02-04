@@ -169,10 +169,10 @@ export default {
 
   created() {
     // 获取评价信息
-    this.$axios.get(this.ratingsUrl).then(
+    this.$axios.get("../data.json").then(
       res => {
         // 将请求成功的数据赋值给本地变量以供调用
-        this.ratingsData = res.data.data;
+        this.ratingsData = res.data.ratings;
 
         // 再在下个流程页面渲染完成后调用BScroll插件初始化评论列表
         this.$nextTick(() => {
